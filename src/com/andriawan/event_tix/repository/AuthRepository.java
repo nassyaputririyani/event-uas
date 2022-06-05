@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import com.andriawan.event_tix.data.DBConn;
 import com.andriawan.event_tix.utils.PasswordUtil;
+import java.sql.ResultSet;
 
 /**
  *
@@ -38,4 +39,32 @@ public class AuthRepository extends DBConn {
             return false;
         }
     }
+	
+	public Boolean login(String email, String password) {
+
+        try {
+            String query = "SELECT * FROM users WHERE email = '" + email + "'";
+            stmt = connection.createStatement();
+            ResultSet result = stmt.executeQuery(query);
+            
+            if(result.next()) {
+                String hashedPass = result.getString("password");
+                String saltPass = result.getString("password_salt");
+                
+                if(PasswordUtil.verifyUserPass(password, hashedPass, saltPass)) {
+                    connection.close();
+                    return true;
+                    
+                }
+            }
+            
+            //connection.close();
+            return false;
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
+            return false;
+        }
+    }
+	
 }
