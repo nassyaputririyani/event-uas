@@ -20,23 +20,27 @@ import com.andriawan.event_tix.repository.TransactionRepository;
  */
 public class TransactionPage extends javax.swing.JPanel {
 
-    private TransactionRepository repository;
+    private final TransactionRepository repository;
     private List<Transaction> transactions;
-    private JPanel mainPanel;
+    private final JPanel mainPanel;
 
     /**
      * Creates new form Form_1
+     * @param mainPanel
      */
     public TransactionPage(JPanel mainPanel) {
         this.mainPanel = mainPanel;
         initComponents();
         repository = new TransactionRepository();
-        initData();
+        initData("");
     }
 
-    private void initData() {
-        transactions = repository.getListTransactions();
+    private void initData(String q) {
+        transactions = repository.getListTransactions(q);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
+        }
         for (Transaction transaction : transactions) {
             model.addRow(new Object[]{
                 transaction.event.getId(),
@@ -118,6 +122,11 @@ public class TransactionPage extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jTextField1.setToolTipText("Cari transaksi");
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -155,6 +164,10 @@ public class TransactionPage extends javax.swing.JPanel {
         mainPanel.repaint();
         mainPanel.revalidate();
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        initData(jTextField1.getText());
+    }//GEN-LAST:event_jTextField1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

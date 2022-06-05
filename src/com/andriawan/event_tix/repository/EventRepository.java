@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -45,6 +45,44 @@ public class EventRepository extends DBConn {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
             return new ArrayList<>();
+        }
+    }
+    
+    public Event getEvent(int eventID) {
+        try {
+            stmt = connection.createStatement();
+            resultSet = stmt.executeQuery("SELECT * FROM events WHERE events.id = " + eventID);
+            List<Event> list = new ArrayList<>();
+            
+            while (resultSet.next()) {
+                Event event = new Event(
+                    resultSet.getInt(1), 
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getInt(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getInt(7),
+                    resultSet.getString(8)
+                );
+                
+                list.add(event);
+            }
+            
+            stmt.close();
+            resultSet.close();
+            connection.close();
+            
+            if (!list.isEmpty()) {
+                return list.get(0);
+            } else {
+                JOptionPane.showMessageDialog(null, "User not found");
+                return null;
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
+            return null;
         }
     }
 }

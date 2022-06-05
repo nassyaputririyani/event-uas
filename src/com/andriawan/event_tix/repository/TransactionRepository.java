@@ -13,10 +13,14 @@ import com.andriawan.event_tix.models.User;
 
 public class TransactionRepository extends DBConn {
     
-    public List<Transaction> getListTransactions() {
+    public List<Transaction> getListTransactions(String q) {
         try {
             stmt = connection.createStatement();
-            resultSet = stmt.executeQuery("SELECT events.id, events.title, events.description, events.quota, events.status, events.type, events.price, events.event_time, users.name, users.email, users.role, users.password, users.created_at, users.updated_at, transactions.id, transactions.status, transactions.deadline, transactions.amount FROM transactions INNER JOIN events ON events.id = transactions.events_id INNER JOIN users ON users.id = transactions.users_id;");
+            if (!q.isEmpty()) {
+                resultSet = stmt.executeQuery("SELECT events.id, events.title, events.description, events.quota, events.status, events.type, events.price, events.event_time, users.name, users.email, users.role, users.password, users.created_at, users.updated_at, transactions.id, transactions.status, transactions.deadline, transactions.amount FROM transactions INNER JOIN events ON events.id = transactions.events_id INNER JOIN users ON users.id = transactions.users_id WHERE events.title LIKE '%" + q + "%'");
+            } else {
+                resultSet = stmt.executeQuery("SELECT events.id, events.title, events.description, events.quota, events.status, events.type, events.price, events.event_time, users.name, users.email, users.role, users.password, users.created_at, users.updated_at, transactions.id, transactions.status, transactions.deadline, transactions.amount FROM transactions INNER JOIN events ON events.id = transactions.events_id INNER JOIN users ON users.id = transactions.users_id;");
+            }
             List<Transaction> list = new ArrayList<>();
             
             while (resultSet.next()) {
@@ -52,7 +56,6 @@ public class TransactionRepository extends DBConn {
                 list.add(transaction);
             }
 
-            connection.close();
             stmt.close();
             resultSet.close();
 
@@ -102,7 +105,6 @@ public class TransactionRepository extends DBConn {
                 list.add(transaction);
             }
 
-            connection.close();
             stmt.close();
             resultSet.close();
 
