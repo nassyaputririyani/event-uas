@@ -6,6 +6,7 @@ package com.andriawan.event_tix.repository;
 
 import com.andriawan.event_tix.data.DBConn;
 import com.andriawan.event_tix.models.Event;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +84,25 @@ public class EventRepository extends DBConn {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
             return null;
+        }
+    }
+    
+    public Boolean addEvent(String title, String description, int quota, String type, int price, String event_time) {
+        try {
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO events (id, title, description, quota, type, price, event_time) VALUE (NULL, ?, ?, ?, ?, ?, ?)");
+            ((PreparedStatement) stmt).setString(1, title);
+            ((PreparedStatement) stmt).setString(2, description);
+            ((PreparedStatement) stmt).setInt(3, quota);
+            ((PreparedStatement) stmt).setString(4, type);
+            ((PreparedStatement) stmt).setInt(5, price);
+            ((PreparedStatement) stmt).setString(6, event_time);
+
+            ((PreparedStatement) stmt).execute();
+
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
+            return false;
         }
     }
 }
