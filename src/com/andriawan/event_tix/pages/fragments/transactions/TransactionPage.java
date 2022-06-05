@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 import com.andriawan.event_tix.models.Transaction;
-import com.andriawan.event_tix.pages.Main;
 import com.andriawan.event_tix.repository.TransactionRepository;
 import com.andriawan.event_tix.utils.DateFormatter;
 import com.andriawan.event_tix.utils.NumberFormatter;
@@ -43,10 +42,9 @@ public class TransactionPage extends javax.swing.JPanel {
         int userId = PreferenceUtil.getUserID();
         transactions = repository.getListTransactions(q, userId);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            model.removeRow(i);
-        }
-        for (Transaction transaction : transactions) {
+        model.setRowCount(0);
+        
+        transactions.forEach((transaction) -> {
             model.addRow(new Object[]{
                 transaction.event.getId(),
                 transaction.event.getTitle(),
@@ -54,7 +52,7 @@ public class TransactionPage extends javax.swing.JPanel {
                 transaction.getStatus(),
                 DateFormatter.formatDate(transaction.getDeadline())
             });
-        }
+        });
     }
 
     /**
@@ -86,7 +84,7 @@ public class TransactionPage extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(jLabel7)
-                .addContainerGap(684, Short.MAX_VALUE))
+                .addContainerGap(701, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

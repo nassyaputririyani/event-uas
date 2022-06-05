@@ -44,7 +44,7 @@ public class AuthRepository extends DBConn {
         }
     }
 	
-	public User login(String email, String password) {
+    public User login(String email, String password) {
 
         try {
             String query = "SELECT * FROM users WHERE email = '" + email + "'";
@@ -69,5 +69,4 @@ public class AuthRepository extends DBConn {
             return null;
         }
     }
-	
 }
