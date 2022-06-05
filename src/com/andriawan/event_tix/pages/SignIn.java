@@ -13,12 +13,15 @@ import javax.swing.ImageIcon;
  * @author Nassya
  */
 public class SignIn extends javax.swing.JFrame {
+	
+	AuthRepository repository;
 
     /**
      * Creates new form Sign in
      */
     public SignIn() {
         initComponents();
+		repository = new AuthRepository();
         
         //center form
         this.setLocationRelativeTo(null);
