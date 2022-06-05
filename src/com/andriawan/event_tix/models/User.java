@@ -2,9 +2,11 @@ package com.andriawan.event_tix.models;
 
 public class User {
     
+    int id;
     String name, email, role, password, passwordSalt, createdAt, updatedAt;
 
-    public User(String name, String email, String role, String password, String createdAt, String updatedAt) {
+    public User(int id, String name, String email, String role, String password, String createdAt, String updatedAt) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.role = role;
@@ -67,6 +69,7 @@ public class User {
         int result = 1;
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + id;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((password == null) ? 0 : password.hashCode());
         result = prime * result + ((passwordSalt == null) ? 0 : passwordSalt.hashCode());
@@ -93,6 +96,8 @@ public class User {
             if (other.email != null)
                 return false;
         } else if (!email.equals(other.email))
+            return false;
+        if (id != other.id)
             return false;
         if (name == null) {
             if (other.name != null)
@@ -128,5 +133,13 @@ public class User {
 
     public void setPasswordSalt(String passwordSalt) {
         this.passwordSalt = passwordSalt;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

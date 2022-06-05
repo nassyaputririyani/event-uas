@@ -36,21 +36,22 @@ public class TransactionRepository extends DBConn {
                 );
 
                 User user = new User(
-                    resultSet.getString(9), 
+                    resultSet.getInt(9), 
                     resultSet.getString(10), 
                     resultSet.getString(11), 
                     resultSet.getString(12), 
                     resultSet.getString(13), 
-                    resultSet.getString(14)
+                    resultSet.getString(14), 
+                    resultSet.getString(15)
                 );
 
                 Transaction transaction = new Transaction(
-                    resultSet.getInt(15), 
+                    resultSet.getInt(16), 
                     event, 
                     user, 
-                    resultSet.getString(16), 
                     resultSet.getString(17), 
-                    resultSet.getInt(18)
+                    resultSet.getString(18), 
+                    resultSet.getInt(19)
                 );
 
                 list.add(transaction);
@@ -69,7 +70,7 @@ public class TransactionRepository extends DBConn {
     public Transaction getTransaction(int transactionId) {
         try {
             stmt = connection.createStatement();
-            resultSet = stmt.executeQuery("SELECT events.id, events.title, events.description, events.quota, events.status, events.type, events.price, events.event_time, users.name, users.email, users.role, users.password, users.created_at, users.updated_at, transactions.id, transactions.status, transactions.deadline, transactions.amount FROM transactions INNER JOIN events ON events.id = transactions.events_id INNER JOIN users ON users.id = transactions.users_id WHERE transactions.id = " + transactionId);
+            resultSet = stmt.executeQuery("SELECT events.id, events.title, events.description, events.quota, events.status, events.type, events.price, events.event_time, users.id, users.name, users.email, users.role, users.password, users.created_at, users.updated_at, transactions.id, transactions.status, transactions.deadline, transactions.amount FROM transactions INNER JOIN events ON events.id = transactions.events_id INNER JOIN users ON users.id = transactions.users_id WHERE transactions.id = " + transactionId);
             List<Transaction> list = new ArrayList<>();
             
             while (resultSet.next()) {
@@ -85,21 +86,22 @@ public class TransactionRepository extends DBConn {
                 );
 
                 User user = new User(
-                    resultSet.getString(9), 
+                    resultSet.getInt(9), 
                     resultSet.getString(10), 
                     resultSet.getString(11), 
                     resultSet.getString(12), 
                     resultSet.getString(13), 
-                    resultSet.getString(14)
+                    resultSet.getString(14),
+                    resultSet.getString(15)
                 );
 
                 Transaction transaction = new Transaction(
-                    resultSet.getInt(15), 
+                    resultSet.getInt(16), 
                     event, 
                     user, 
-                    resultSet.getString(16), 
                     resultSet.getString(17), 
-                    resultSet.getInt(18)
+                    resultSet.getString(18), 
+                    resultSet.getInt(19)
                 );
 
                 list.add(transaction);

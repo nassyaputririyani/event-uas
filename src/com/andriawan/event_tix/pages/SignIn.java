@@ -5,21 +5,30 @@
  */
 package com.andriawan.event_tix.pages;
 
+import com.andriawan.event_tix.models.User;
+import com.andriawan.event_tix.repository.AuthRepository;
+import com.andriawan.event_tix.utils.PreferenceUtil;
+import com.andriawan.event_tix.utils.Util;
 import java.awt.Cursor;
+import java.awt.HeadlessException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Nassya
  */
 public class SignIn extends javax.swing.JFrame {
+    
+    private final AuthRepository repository;
 
     /**
      * Creates new form Sign in
      */
     public SignIn() {
         initComponents();
-        
+        repository = new AuthRepository();
+      
         //center form
         this.setLocationRelativeTo(null);
         
@@ -41,13 +50,15 @@ public class SignIn extends javax.swing.JFrame {
 
         kGradientPanel2 = new com.k33ptoo.components.KGradientPanel();
         jPanel1 = new javax.swing.JPanel();
-        field_email = new javax.swing.JTextField();
+        inputEmail = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        field_password = new javax.swing.JPasswordField();
+        inputPassword = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
         btnSignUp = new javax.swing.JButton();
         btnSignIn = new com.k33ptoo.components.KButton();
+        errorEmail = new javax.swing.JLabel();
+        errorPassword = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -67,21 +78,21 @@ public class SignIn extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        field_email.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        field_email.setForeground(new java.awt.Color(178, 177, 185));
-        field_email.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(42, 119, 191)));
+        inputEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        inputEmail.setForeground(new java.awt.Color(178, 177, 185));
+        inputEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(42, 119, 191)));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(70, 78, 86));
-        jLabel5.setText("email");
+        jLabel5.setText("Email");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(70, 78, 86));
-        jLabel6.setText("password");
+        jLabel6.setText("Password");
 
-        field_password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        field_password.setForeground(new java.awt.Color(70, 78, 86));
-        field_password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 120, 215)));
+        inputPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        inputPassword.setForeground(new java.awt.Color(70, 78, 86));
+        inputPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 120, 215)));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(143, 144, 166));
@@ -116,6 +127,10 @@ public class SignIn extends javax.swing.JFrame {
             }
         });
 
+        errorEmail.setForeground(new java.awt.Color(153, 0, 0));
+
+        errorPassword.setForeground(new java.awt.Color(153, 0, 0));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -129,12 +144,15 @@ public class SignIn extends javax.swing.JFrame {
                         .addComponent(btnSignUp))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(75, 75, 75)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(field_email, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                            .addComponent(field_password)
-                            .addComponent(btnSignIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(errorEmail)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(inputEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                .addComponent(inputPassword)
+                                .addComponent(btnSignIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(errorPassword))))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -143,14 +161,18 @@ public class SignIn extends javax.swing.JFrame {
                 .addContainerGap(100, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(field_email, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(errorEmail)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addGap(9, 9, 9)
-                .addComponent(field_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(errorPassword)
+                .addGap(28, 28, 28)
                 .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(btnSignUp))
@@ -203,7 +225,7 @@ public class SignIn extends javax.swing.JFrame {
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,25 +244,56 @@ public class SignIn extends javax.swing.JFrame {
 
     private void btnSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignInMouseClicked
         
-		
-		try {
-            String email = field_email.getText();
-            String password = field_password.getText();
+        if (validateInput()) {
+            String email = inputEmail.getText();
+            String password = new String(inputPassword.getPassword()).trim();
+
+            User user = repository.login(email, password);
             
-            if(repository.login(email, password)) {
+            if (user != null) {
                 JOptionPane.showMessageDialog(null, "Login Success");
-                Main admin = new Main();
-				admin.setVisible(true);
-				this.setVisible(false);
-                
+                if ("admin".equals(user.getRole())) {
+                    System.out.println("To Admin");
+                } else {
+                    Main mainUser = new Main();
+                    mainUser.setVisible(true);
+                    this.setVisible(false);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid email or password");
             }
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnSignInMouseClicked
 
+    private boolean validateInput() {
+        String email = inputEmail.getText().trim();
+        String password = new String(inputPassword.getPassword()).trim();
+
+        boolean valid = true;
+
+        if (email.isEmpty()) {
+            errorEmail.setText("Silahkan isi email");
+            valid = false;
+        } else if (!Util.isValidEmailAddress(email)) {
+            errorEmail.setText("Email tidak valid");
+            valid = false;
+        } else {
+            errorEmail.setText("");
+        }
+
+        if (password.isEmpty()) {
+            errorPassword.setText("Silahkan isi password");
+            valid = false;
+        } else if (password.length() < 8 || password.length() > 16) {
+            errorPassword.setText("Panjang password 8-16 karakter");
+            valid = false;
+        } else {
+            errorPassword.setText("");
+        }
+
+        return valid;
+    }
+    
     private void kGradientPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kGradientPanel2MouseEntered
         btnSignIn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnSignUp.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -283,7 +336,21 @@ public class SignIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SignIn().setVisible(true);
+                int userId = PreferenceUtil.getUserID();
+                String role = PreferenceUtil.getRole();
+                
+                if (userId > 0) {
+                    if ("user".equals(role)) {
+                        System.out.println("Go to main");
+                        Main mainUser = new Main();
+                        mainUser.setVisible(true);
+                    } else {
+                        System.out.println("Go to admin");
+                        new SignIn().setVisible(true);
+                    }
+                } else {
+                    new SignIn().setVisible(true);
+                }
             }
         });
     }
@@ -291,8 +358,10 @@ public class SignIn extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.k33ptoo.components.KButton btnSignIn;
     private javax.swing.JButton btnSignUp;
-    private javax.swing.JTextField field_email;
-    private javax.swing.JPasswordField field_password;
+    private javax.swing.JLabel errorEmail;
+    private javax.swing.JLabel errorPassword;
+    private javax.swing.JTextField inputEmail;
+    private javax.swing.JPasswordField inputPassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

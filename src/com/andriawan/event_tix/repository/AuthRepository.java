@@ -9,8 +9,12 @@ import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 
 import com.andriawan.event_tix.data.DBConn;
+import com.andriawan.event_tix.models.User;
 import com.andriawan.event_tix.utils.PasswordUtil;
+import com.andriawan.event_tix.utils.PreferenceUtil;
+
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -34,36 +38,35 @@ public class AuthRepository extends DBConn {
             connection.close();
 
             return true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
             return false;
         }
     }
 	
-	public Boolean login(String email, String password) {
+	public User login(String email, String password) {
 
         try {
             String query = "SELECT * FROM users WHERE email = '" + email + "'";
             stmt = connection.createStatement();
             ResultSet result = stmt.executeQuery(query);
             
-            if(result.next()) {
+            if (result.next()) {
                 String hashedPass = result.getString("password");
                 String saltPass = result.getString("password_salt");
                 
-                if(PasswordUtil.verifyUserPass(password, hashedPass, saltPass)) {
+                if (PasswordUtil.verifyUserPass(password, hashedPass, saltPass)) {
+                    User user = new User(result.getInt("id"), result.getString("name"), result.getString("email"), result.getString("role"), result.getString("password"), result.getString("created_at"), result.getString("updated_at"));
+                    PreferenceUtil.saveUserData(user.getId(), user.getName(), user.getRole());
                     connection.close();
-                    return true;
-                    
+                    return user;
                 }
             }
             
-            //connection.close();
-            return false;
-            
-        } catch (Exception e) {
+            return null;
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
-            return false;
+            return null;
         }
     }
 	
