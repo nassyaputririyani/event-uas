@@ -58,7 +58,6 @@ public class SignIn extends javax.swing.JFrame {
         btnSignIn = new com.k33ptoo.components.KButton();
         errorEmail = new javax.swing.JLabel();
         errorPassword = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -78,7 +77,7 @@ public class SignIn extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         inputEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        inputEmail.setForeground(new java.awt.Color(178, 177, 185));
+        inputEmail.setForeground(new java.awt.Color(70, 78, 86));
         inputEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(42, 119, 191)));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -178,10 +177,6 @@ public class SignIn extends javax.swing.JFrame {
                 .addGap(99, 99, 99))
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Ease Vent");
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Sign In");
@@ -202,10 +197,8 @@ public class SignIn extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel7)
+                        .addGap(0, 384, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         kGradientPanel2Layout.setVerticalGroup(
@@ -213,9 +206,7 @@ public class SignIn extends javax.swing.JFrame {
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(jLabel1)
-                        .addGap(50, 50, 50)
+                        .addGap(135, 135, 135)
                         .addComponent(jLabel2)
                         .addGap(10, 10, 10)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,8 +292,8 @@ public class SignIn extends javax.swing.JFrame {
     }//GEN-LAST:event_kGradientPanel2MouseEntered
 
     private void btnSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignUpMouseClicked
-        SignUp admin = new SignUp();
-        admin.setVisible(true);
+        SignUp register = new SignUp();
+        register.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnSignUpMouseClicked
 
@@ -362,7 +353,6 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JLabel errorPassword;
     private javax.swing.JTextField inputEmail;
     private javax.swing.JPasswordField inputPassword;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

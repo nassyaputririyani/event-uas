@@ -7,6 +7,8 @@ package com.andriawan.event_tix.pages.fragments.home;
 
 import com.andriawan.event_tix.models.Event;
 import com.andriawan.event_tix.repository.EventRepository;
+import com.andriawan.event_tix.utils.DateFormatter;
+import com.andriawan.event_tix.utils.NumberFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -37,15 +39,20 @@ public class DetailEvent extends javax.swing.JPanel {
         }
         jLabel3.setIcon(
             new ImageIcon(
-                this.getClass().getResource("/com/andriawan/event_tix/icons/img_calendar.png")
+                this.getClass().getResource("/com/andriawan/event_tix/icons/Calendar.png")
             )
         );
         
-         jLabel4.setIcon(
+         jLabel5.setIcon(
             new ImageIcon(
-                this.getClass().getResource("/com/andriawan/event_tix/icons/img_calendar.png")
+                this.getClass().getResource("/com/andriawan/event_tix/icons/Star.png")
             )
         );
+         
+        eventTitle.setText(event.getTitle());
+        eventPrice.setText(NumberFormatter.formatCurrency(event.getPrice())); 
+        eventTime.setText(DateFormatter.formatDate(event.getEventTime()));
+        eventDescriptions.setText(event.getDescription());
     }
 
     /**
@@ -65,9 +72,9 @@ public class DetailEvent extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         eventTime = new javax.swing.JLabel();
         eventDescriptions = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         eventPrice = new javax.swing.JLabel();
-        btnSignIn = new com.k33ptoo.components.KButton();
+        jLabel5 = new javax.swing.JLabel();
+        btnDaftarEvent = new com.k33ptoo.components.KButton();
 
         jPanel1.setBackground(new java.awt.Color(2, 54, 102));
 
@@ -93,7 +100,7 @@ public class DetailEvent extends javax.swing.JPanel {
                 .addComponent(jLabel7)
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addContainerGap(741, Short.MAX_VALUE))
+                .addContainerGap(718, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,50 +113,50 @@ public class DetailEvent extends javax.swing.JPanel {
         kGradientPanel1.setkGradientFocus(-8);
         kGradientPanel1.setkStartColor(new java.awt.Color(255, 255, 255));
 
-        eventTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eventTitle.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        eventTitle.setForeground(new java.awt.Color(2, 54, 102));
         eventTitle.setText("Nama Event");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(70, 78, 86));
-        jLabel3.setPreferredSize(new java.awt.Dimension(167, 85));
+        jLabel3.setPreferredSize(new java.awt.Dimension(24, 24));
 
-        eventTime.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        eventTime.setForeground(new java.awt.Color(70, 78, 86));
+        eventTime.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        eventTime.setForeground(new java.awt.Color(246, 108, 15));
         eventTime.setText("Waktu Event");
         eventTime.setPreferredSize(new java.awt.Dimension(167, 85));
 
-        eventDescriptions.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        eventDescriptions.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         eventDescriptions.setForeground(new java.awt.Color(70, 78, 86));
         eventDescriptions.setText("Event Detail");
-        eventDescriptions.setPreferredSize(new java.awt.Dimension(167, 85));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(70, 78, 86));
-        jLabel4.setPreferredSize(new java.awt.Dimension(167, 85));
-
-        eventPrice.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        eventPrice.setForeground(new java.awt.Color(70, 78, 86));
+        eventPrice.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        eventPrice.setForeground(new java.awt.Color(33, 159, 148));
         eventPrice.setText("Harga");
         eventPrice.setPreferredSize(new java.awt.Dimension(167, 85));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(70, 78, 86));
+        jLabel5.setPreferredSize(new java.awt.Dimension(24, 24));
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(37, 37, 37)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(eventDescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventTitle)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(eventTime, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(eventTime, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
                         .addComponent(eventPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(eventTitle))
-                .addContainerGap(424, Short.MAX_VALUE))
+                    .addComponent(eventDescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,27 +168,26 @@ public class DetailEvent extends javax.swing.JPanel {
                     .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(eventTime, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(eventPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
+                    .addComponent(eventPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(eventDescriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
-        btnSignIn.setText("Daftar Sekarang");
-        btnSignIn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSignIn.setkBackGroundColor(new java.awt.Color(42, 119, 191));
-        btnSignIn.setkBorderRadius(25);
-        btnSignIn.setkEndColor(new java.awt.Color(2, 54, 102));
-        btnSignIn.setkHoverEndColor(new java.awt.Color(32, 103, 169));
-        btnSignIn.setkHoverForeGround(new java.awt.Color(204, 204, 255));
-        btnSignIn.setkHoverStartColor(new java.awt.Color(42, 119, 191));
-        btnSignIn.setkSelectedColor(new java.awt.Color(42, 119, 191));
-        btnSignIn.setkStartColor(new java.awt.Color(32, 103, 169));
-        btnSignIn.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnDaftarEvent.setText("Daftar Sekarang");
+        btnDaftarEvent.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDaftarEvent.setkBackGroundColor(new java.awt.Color(42, 119, 191));
+        btnDaftarEvent.setkBorderRadius(25);
+        btnDaftarEvent.setkEndColor(new java.awt.Color(2, 54, 102));
+        btnDaftarEvent.setkHoverEndColor(new java.awt.Color(32, 103, 169));
+        btnDaftarEvent.setkHoverForeGround(new java.awt.Color(204, 204, 255));
+        btnDaftarEvent.setkHoverStartColor(new java.awt.Color(42, 119, 191));
+        btnDaftarEvent.setkSelectedColor(new java.awt.Color(42, 119, 191));
+        btnDaftarEvent.setkStartColor(new java.awt.Color(32, 103, 169));
+        btnDaftarEvent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSignInMouseClicked(evt);
+                btnDaftarEventMouseClicked(evt);
             }
         });
 
@@ -190,44 +196,47 @@ public class DetailEvent extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDaftarEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(84, 84, 84))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(btnDaftarEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-
+        mainPanel.removeAll();
+        mainPanel.add(new HomePage(mainPanel));
+        mainPanel.repaint();
+        mainPanel.revalidate();
     }//GEN-LAST:event_jLabel7MouseClicked
 
-    private void btnSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignInMouseClicked
+    private void btnDaftarEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDaftarEventMouseClicked
 
-    }//GEN-LAST:event_btnSignInMouseClicked
+    }//GEN-LAST:event_btnDaftarEventMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.k33ptoo.components.KButton btnSignIn;
+    private com.k33ptoo.components.KButton btnDaftarEvent;
     private javax.swing.JLabel eventDescriptions;
     private javax.swing.JLabel eventPrice;
     private javax.swing.JLabel eventTime;
     private javax.swing.JLabel eventTitle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private com.k33ptoo.components.KGradientPanel kGradientPanel1;
