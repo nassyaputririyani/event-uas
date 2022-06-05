@@ -42,10 +42,9 @@ public class TransactionPageAdmin extends javax.swing.JPanel {
     private void initData(String q) {
         transactions = repository.getListTransactionsAdmin(q);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            model.removeRow(i);
-        }
-        for (Transaction transaction : transactions) {
+        model.setRowCount(0);
+        
+        transactions.forEach((transaction) -> {
             model.addRow(new Object[]{
                 transaction.event.getId(),
                 transaction.event.getTitle(),
@@ -53,7 +52,7 @@ public class TransactionPageAdmin extends javax.swing.JPanel {
                 transaction.getStatus(),
                 DateFormatter.formatDate(transaction.getDeadline())
             });
-        }
+        });
     }
 
     /**
@@ -175,9 +174,9 @@ public class TransactionPageAdmin extends javax.swing.JPanel {
             case "pending":
                 int option = JOptionPane.showConfirmDialog(null, "Anda yakin akan melunaskan transaksi ini?");
                 if (option == JOptionPane.OK_OPTION) {
-                    boolean cancelled = repository.cancelTransaction(transaction.getId());
-                    if (cancelled) {
-                        JOptionPane.showMessageDialog(null, "Berhasil membatalkan transaksi");
+                    boolean paid = repository.paidTransaction(transaction.getId());
+                    if (paid) {
+                        JOptionPane.showMessageDialog(null, "Berhasil melunasi transaksi");
                         initData("");
                     }
                 }

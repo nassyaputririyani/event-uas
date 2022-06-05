@@ -42,10 +42,9 @@ public class TransactionPage extends javax.swing.JPanel {
         int userId = PreferenceUtil.getUserID();
         transactions = repository.getListTransactions(q, userId);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            model.removeRow(i);
-        }
-        for (Transaction transaction : transactions) {
+        model.setRowCount(0);
+        
+        transactions.forEach((transaction) -> {
             model.addRow(new Object[]{
                 transaction.event.getId(),
                 transaction.event.getTitle(),
@@ -53,7 +52,7 @@ public class TransactionPage extends javax.swing.JPanel {
                 transaction.getStatus(),
                 DateFormatter.formatDate(transaction.getDeadline())
             });
-        }
+        });
     }
 
     /**

@@ -9,7 +9,9 @@ import com.andriawan.event_tix.models.Event;
 import com.andriawan.event_tix.repository.EventRepository;
 import com.andriawan.event_tix.utils.DateFormatter;
 import com.andriawan.event_tix.utils.NumberFormatter;
+import com.andriawan.event_tix.utils.PreferenceUtil;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -224,7 +226,21 @@ public class DetailEvent extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void btnDaftarEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDaftarEventMouseClicked
-
+        if ("active".equals(event.getStatus())) {
+             int userId = PreferenceUtil.getUserID();
+            boolean isAvailable = eventRepository.isAvailable(userId, event.getId());
+            int price = "free".equals(event.getType()) ? 0 : event.getPrice();
+            
+            if (isAvailable) {
+                if (eventRepository.insertTransaction(event.getId(), userId, price)) {
+                     JOptionPane.showMessageDialog(null, "Berhasil mendaftar, silahkan cek menu transaksi");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Anda sudah terdaftar");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Event tidak aktif");
+        }
     }//GEN-LAST:event_btnDaftarEventMouseClicked
 
 
