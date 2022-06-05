@@ -13,13 +13,13 @@ import com.andriawan.event_tix.models.User;
 
 public class TransactionRepository extends DBConn {
     
-    public List<Transaction> getListTransactions(String q) {
+    public List<Transaction> getListTransactions(String q, int userId) {
         try {
             stmt = connection.createStatement();
             if (!q.isEmpty()) {
-                resultSet = stmt.executeQuery("SELECT events.id, events.title, events.description, events.quota, events.status, events.type, events.price, events.event_time, users.name, users.email, users.role, users.password, users.created_at, users.updated_at, transactions.id, transactions.status, transactions.deadline, transactions.amount FROM transactions INNER JOIN events ON events.id = transactions.events_id INNER JOIN users ON users.id = transactions.users_id WHERE events.title LIKE '%" + q + "%'");
+                resultSet = stmt.executeQuery("SELECT events.id, events.title, events.description, events.quota, events.status, events.type, events.price, events.event_time, users.id, users.name, users.email, users.role, users.password, users.created_at, users.updated_at, transactions.id, transactions.status, transactions.deadline, transactions.amount FROM transactions INNER JOIN events ON events.id = transactions.events_id INNER JOIN users ON users.id = transactions.users_id WHERE events.title LIKE '%" + q + "%'" + " AND users.id = " + userId);
             } else {
-                resultSet = stmt.executeQuery("SELECT events.id, events.title, events.description, events.quota, events.status, events.type, events.price, events.event_time, users.name, users.email, users.role, users.password, users.created_at, users.updated_at, transactions.id, transactions.status, transactions.deadline, transactions.amount FROM transactions INNER JOIN events ON events.id = transactions.events_id INNER JOIN users ON users.id = transactions.users_id;");
+                resultSet = stmt.executeQuery("SELECT events.id, events.title, events.description, events.quota, events.status, events.type, events.price, events.event_time, users.id, users.name, users.email, users.role, users.password, users.created_at, users.updated_at, transactions.id, transactions.status, transactions.deadline, transactions.amount FROM transactions INNER JOIN events ON events.id = transactions.events_id INNER JOIN users ON users.id = transactions.users_id WHERE users.id = " + userId);
             }
             List<Transaction> list = new ArrayList<>();
             

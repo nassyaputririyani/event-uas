@@ -334,23 +334,21 @@ public class SignIn extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                int userId = PreferenceUtil.getUserID();
-                String role = PreferenceUtil.getRole();
-                
-                if (userId > 0) {
-                    if ("user".equals(role)) {
-                        System.out.println("Go to main");
-                        Main mainUser = new Main();
-                        mainUser.setVisible(true);
-                    } else {
-                        System.out.println("Go to admin");
-                        new SignIn().setVisible(true);
-                    }
+        java.awt.EventQueue.invokeLater(() -> {
+            int userId = PreferenceUtil.getUserID();
+            String role = PreferenceUtil.getRole();
+            
+            if (userId > 0) {
+                if ("user".equals(role)) {
+                    System.out.println("Go to main");
+                    Main mainUser = new Main();
+                    mainUser.setVisible(true);
                 } else {
+                    System.out.println("Go to admin");
                     new SignIn().setVisible(true);
                 }
+            } else {
+                new SignIn().setVisible(true);
             }
         });
     }
