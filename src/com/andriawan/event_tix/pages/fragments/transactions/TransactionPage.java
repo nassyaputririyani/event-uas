@@ -7,12 +7,16 @@ package com.andriawan.event_tix.pages.fragments.transactions;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 import com.andriawan.event_tix.models.Transaction;
 import com.andriawan.event_tix.pages.Main;
 import com.andriawan.event_tix.repository.TransactionRepository;
+import com.andriawan.event_tix.utils.DateFormatter;
+import com.andriawan.event_tix.utils.NumberFormatter;
+import com.andriawan.event_tix.utils.PreferenceUtil;
 
 /**
  *
@@ -36,7 +40,8 @@ public class TransactionPage extends javax.swing.JPanel {
     }
 
     private void initData(String q) {
-        transactions = repository.getListTransactions(q);
+        int userId = PreferenceUtil.getUserID();
+        transactions = repository.getListTransactions(q, userId);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             model.removeRow(i);
@@ -45,9 +50,9 @@ public class TransactionPage extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 transaction.event.getId(),
                 transaction.event.getTitle(),
-                transaction.getAmount(),
+                NumberFormatter.formatCurrency(transaction.getAmount()),
                 transaction.getStatus(),
-                transaction.getDeadline()
+                DateFormatter.formatDate(transaction.getDeadline())
             });
         }
     }
@@ -66,6 +71,7 @@ public class TransactionPage extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(2, 54, 102));
 
@@ -98,16 +104,9 @@ public class TransactionPage extends javax.swing.JPanel {
                 "ID Event", "Judul", "Harga", "Status Pembayaran", "Deadline"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -128,6 +127,8 @@ public class TransactionPage extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("Cari Transaksi");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,8 +140,9 @@ public class TransactionPage extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)))
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -148,9 +150,11 @@ public class TransactionPage extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -158,11 +162,24 @@ public class TransactionPage extends javax.swing.JPanel {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int row = jTable1.rowAtPoint(evt.getPoint());
+        Transaction transaction = transactions.get(row);
 
-        mainPanel.removeAll();
-        mainPanel.add(new TransactionDetailPage(transactions.get(row).getId(), mainPanel));
-        mainPanel.repaint();
-        mainPanel.revalidate();
+        if (null == transaction.getStatus()) {
+            JOptionPane.showMessageDialog(null, "Transaksi sudah gagal");
+        } else switch (transaction.getStatus()) {
+            case "paid":
+                mainPanel.removeAll();
+                mainPanel.add(new TransactionDetailPage(transaction.getId(), mainPanel));
+                mainPanel.repaint();
+                mainPanel.revalidate();
+                break;
+            case "pending":
+                JOptionPane.showMessageDialog(null, "Silahkan lunasi pembayaran transaksi");
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Transaksi sudah gagal");
+                break;
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
@@ -171,6 +188,7 @@ public class TransactionPage extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
