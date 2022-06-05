@@ -4,8 +4,10 @@
  */
 package com.andriawan.event_tix.pages.fragments.home;
 
+import com.andriawan.event_tix.models.Event;
 import com.andriawan.event_tix.repository.EventRepository;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,13 +16,39 @@ import javax.swing.JOptionPane;
 public class EventForm extends javax.swing.JPanel {
     
     EventRepository repository;
+    JPanel mainPanel;
+    Event event;
+    String type = "add";
 
     /**
      * Creates new form EventForm
+     * @param mainPanel
+     * @param event
      */
-    public EventForm() {
+    public EventForm(JPanel mainPanel, Event event) {
         initComponents();
+        this.event = event;
+        this.mainPanel = mainPanel;
         repository = new EventRepository();
+        
+        if (event != null) {
+            type = "edit";
+            titleLabel.setText("Update Event");
+            fillForm(event);
+        }
+    }
+
+    private void fillForm(Event event) {
+        inputJudul.setText(event.getTitle());
+        inputKuota.setText(String.valueOf(event.getQuota()));
+        if ("paid".equals(event.getType())) {
+            inputTipe.setSelectedIndex(1);
+        } else {
+            inputTipe.setSelectedIndex(2);
+        }
+        inputHarga.setText(String.valueOf(event.getPrice()));
+        inputWaktu.setText(event.getEventTime());
+        inputDeskripsi.setText(event.getDescription());
     }
 
     /**
@@ -32,11 +60,11 @@ public class EventForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSignIn = new com.k33ptoo.components.KButton();
         jLabel5 = new javax.swing.JLabel();
         inputWaktu = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
+        backLabel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         inputJudul = new javax.swing.JTextField();
@@ -50,22 +78,6 @@ public class EventForm extends javax.swing.JPanel {
         inputTipe = new javax.swing.JComboBox<>();
         btnSignIn1 = new com.k33ptoo.components.KButton();
 
-        btnSignIn.setText("Sign In");
-        btnSignIn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSignIn.setkBackGroundColor(new java.awt.Color(42, 119, 191));
-        btnSignIn.setkBorderRadius(25);
-        btnSignIn.setkEndColor(new java.awt.Color(2, 54, 102));
-        btnSignIn.setkHoverEndColor(new java.awt.Color(32, 103, 169));
-        btnSignIn.setkHoverForeGround(new java.awt.Color(204, 204, 255));
-        btnSignIn.setkHoverStartColor(new java.awt.Color(42, 119, 191));
-        btnSignIn.setkSelectedColor(new java.awt.Color(42, 119, 191));
-        btnSignIn.setkStartColor(new java.awt.Color(32, 103, 169));
-        btnSignIn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSignInMouseClicked(evt);
-            }
-        });
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Tipe");
 
@@ -77,29 +89,41 @@ public class EventForm extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(2, 54, 102));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel1.setText("Tambah Event");
+        titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(240, 240, 240));
+        titleLabel.setText("Tambah Event");
+
+        backLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        backLabel.setForeground(new java.awt.Color(255, 255, 255));
+        backLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/andriawan/event_tix/icons/ic_back.png"))); // NOI18N
+        backLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backLabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(backLabel)
+                .addGap(20, 20, 20)
+                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(31, 31, 31))
+            .addComponent(backLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setText("Waktu (format. yyyy-mm-dd HH:MM:ss");
+        jLabel6.setText("Waktu (format. yyyy-mm-dd HH:MM:ss)");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Deskripsi");
@@ -170,31 +194,32 @@ public class EventForm extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(inputKuota, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
+                        .addGap(60, 60, 60)
                         .addComponent(inputTipe, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSignIn1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(inputHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(inputWaktu, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(62, 62, 62)
-                                .addComponent(jLabel5)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputJudul, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 786, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 4, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSignIn1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(inputWaktu)))))
+                    .addComponent(inputJudul, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
@@ -275,8 +300,7 @@ public class EventForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_inputTipeActionPerformed
 
-    private void btnSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignInMouseClicked
-
+    private void btnSignIn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignIn1ActionPerformed
         if (validateInput()) {
             String judul = inputJudul.getText().trim();
             String kuota = inputKuota.getText().trim();
@@ -285,25 +309,36 @@ public class EventForm extends javax.swing.JPanel {
             String waktu = inputWaktu.getText().trim();
             String desk = inputDeskripsi.getText().trim();
 
-            if (repository.addEvent(judul, desk, Integer.valueOf(kuota), tipe, Integer.valueOf(harga), waktu)) {
-                JOptionPane.showMessageDialog(null, "Berhasil menambahkan data event");
-                inputJudul.setText("");
-                inputKuota.setText("");
-                inputTipe.setSelectedIndex(0);
-                inputHarga.setText("");
-                inputWaktu.setText("");
-                inputDeskripsi.setText("");
+            if ("add".equals(type)) {
+                if (repository.addEvent(judul, desk, Integer.valueOf(kuota), tipe, Integer.valueOf(harga), waktu)) {
+                    JOptionPane.showMessageDialog(null, "Berhasil menambahkan data event");
+                    mainPanel.removeAll();
+                    mainPanel.add(new HomePageAdmin(mainPanel));
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
+                }
+            } else {
+                if (repository.updateEvent(event.getId(), judul, desk, Integer.valueOf(kuota), tipe, Integer.valueOf(harga), waktu)) {
+                    JOptionPane.showMessageDialog(null, "Berhasil mengubah data event");
+                    mainPanel.removeAll();
+                    mainPanel.add(new HomePageAdmin(mainPanel));
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
+                }
             }
         }
-    }//GEN-LAST:event_btnSignInMouseClicked
-
-    private void btnSignIn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignIn1ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnSignIn1ActionPerformed
+
+    private void backLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backLabelMouseClicked
+        mainPanel.removeAll();
+        mainPanel.add(new HomePageAdmin(mainPanel));
+        mainPanel.repaint();
+        mainPanel.revalidate();
+    }//GEN-LAST:event_backLabelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.k33ptoo.components.KButton btnSignIn;
+    private javax.swing.JLabel backLabel;
     private com.k33ptoo.components.KButton btnSignIn1;
     private javax.swing.JTextArea inputDeskripsi;
     private javax.swing.JTextField inputHarga;
@@ -311,7 +346,6 @@ public class EventForm extends javax.swing.JPanel {
     private javax.swing.JTextField inputKuota;
     private javax.swing.JComboBox<String> inputTipe;
     private javax.swing.JTextField inputWaktu;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -320,5 +354,6 @@ public class EventForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

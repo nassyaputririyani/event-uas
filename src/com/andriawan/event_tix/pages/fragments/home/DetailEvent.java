@@ -37,13 +37,13 @@ public class DetailEvent extends javax.swing.JPanel {
         }
         jLabel3.setIcon(
             new ImageIcon(
-                this.getClass().getResource("/com/andriawan/event_tix/icons/img_calendar.png")
+                this.getClass().getResource("/com/andriawan/event_tix/icons/ic_calendar.png")
             )
         );
         
          jLabel4.setIcon(
             new ImageIcon(
-                this.getClass().getResource("/com/andriawan/event_tix/icons/img_calendar.png")
+                this.getClass().getResource("/com/andriawan/event_tix/icons/ic_calendar.png")
             )
         );
     }

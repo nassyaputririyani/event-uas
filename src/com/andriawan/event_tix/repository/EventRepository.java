@@ -105,4 +105,24 @@ public class EventRepository extends DBConn {
             return false;
         }
     }
+    
+    public Boolean updateEvent(int id, String title, String description, int quota, String type, int price, String event_time) {
+        try {
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE events SET title = ?, description = ?, quota = ?, type = ?, price = ?, event_time = ? WHERE id = ?");
+            ((PreparedStatement) stmt).setString(1, title);
+            ((PreparedStatement) stmt).setString(2, description);
+            ((PreparedStatement) stmt).setInt(3, quota);
+            ((PreparedStatement) stmt).setString(4, type);
+            ((PreparedStatement) stmt).setInt(5, price);
+            ((PreparedStatement) stmt).setString(6, event_time);
+            ((PreparedStatement) stmt).setInt(7, id);
+
+            ((PreparedStatement) stmt).execute();
+
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
+            return false;
+        }
+    }
 }

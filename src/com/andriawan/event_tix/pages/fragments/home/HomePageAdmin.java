@@ -5,8 +5,10 @@
 package com.andriawan.event_tix.pages.fragments.home;
 
 import com.andriawan.event_tix.models.Event;
-import com.andriawan.event_tix.pages.fragments.transactions.TransactionDetailPage;
 import com.andriawan.event_tix.repository.EventRepository;
+import com.andriawan.event_tix.utils.DateFormatter;
+import com.andriawan.event_tix.utils.NumberFormatter;
+
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +21,8 @@ public class HomePageAdmin extends javax.swing.JPanel {
     
     EventRepository eventRepository;
     private final JPanel mainPanel;
+    private List<Event> eventList;
+
 
     /**
      * Creates new form HomePageAdmin
@@ -33,14 +37,15 @@ public class HomePageAdmin extends javax.swing.JPanel {
     
     private void initTable() {
         List<Event> events = eventRepository.getListEvent();
+        eventList = events;
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (Event event : events) {
             model.addRow(new Object[]{
                 event.getTitle(),
                 event.getQuota(),
                 event.getType(),
-                event.getPrice(),
-                event.getEventTime(),
+                NumberFormatter.formatCurrency(event.getPrice()),
+                DateFormatter.formatDate(event.getEventTime()),
             });
         }
     }
@@ -108,6 +113,11 @@ public class HomePageAdmin extends javax.swing.JPanel {
             }
         });
         jTable1.setMaximumSize(new java.awt.Dimension(900, 0));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Add Event");
@@ -164,12 +174,21 @@ public class HomePageAdmin extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        EventForm addEvent = new EventForm();
+        EventForm addEvent = new EventForm(mainPanel, null);
         mainPanel.removeAll();
         mainPanel.add(addEvent);
         mainPanel.repaint();
         mainPanel.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int row = jTable1.rowAtPoint(evt.getPoint());
+        Event event = eventList.get(row);
+        mainPanel.removeAll();
+        mainPanel.add(new EventForm(mainPanel, event));
+        mainPanel.repaint();
+        mainPanel.revalidate();
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
