@@ -161,9 +161,10 @@ public class TransactionPage extends javax.swing.JPanel {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int row = jTable1.rowAtPoint(evt.getPoint());
+        Transaction transaction = transactions.get(row);
 
         mainPanel.removeAll();
-        mainPanel.add(new TransactionDetailPage(transactions.get(row).getId(), mainPanel));
+        mainPanel.add(new TransactionDetailPage(transaction.getId(), mainPanel));
         mainPanel.repaint();
         mainPanel.revalidate();
     }//GEN-LAST:event_jTable1MouseClicked
