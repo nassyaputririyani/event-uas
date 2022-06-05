@@ -221,9 +221,24 @@ public class SignIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignInMouseClicked
-        Main admin = new Main();
-        admin.setVisible(true);
-        this.setVisible(false);
+        
+		
+		try {
+            String email = field_email.getText();
+            String password = field_password.getText();
+            
+            if(repository.login(email, password)) {
+                JOptionPane.showMessageDialog(null, "Login Success");
+                Main admin = new Main();
+				admin.setVisible(true);
+				this.setVisible(false);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid email or password");
+            }
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_btnSignInMouseClicked
 
     private void kGradientPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kGradientPanel2MouseEntered
