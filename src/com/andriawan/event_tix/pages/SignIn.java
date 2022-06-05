@@ -228,6 +228,7 @@ public class SignIn extends javax.swing.JFrame {
 
     private void kGradientPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kGradientPanel2MouseEntered
         btnSignIn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnSignUp.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_kGradientPanel2MouseEntered
 
     private void btnSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignUpMouseClicked

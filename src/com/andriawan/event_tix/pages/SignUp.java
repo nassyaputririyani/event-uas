@@ -7,6 +7,7 @@ package com.andriawan.event_tix.pages;
 
 import com.andriawan.event_tix.repository.AuthRepository;
 import com.andriawan.event_tix.utils.Util;
+import java.awt.Cursor;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -62,17 +63,17 @@ public class SignUp extends javax.swing.JFrame {
         kGradientPanel2.setkGradientFocus(300);
         kGradientPanel2.setkStartColor(new java.awt.Color(2, 54, 102));
         kGradientPanel2.setPreferredSize(new java.awt.Dimension(910, 610));
+        kGradientPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                kGradientPanel2MouseEntered(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         inputName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         inputName.setForeground(new java.awt.Color(178, 177, 185));
         inputName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(42, 119, 191)));
-        inputName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputNameActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(70, 78, 86));
@@ -291,6 +292,11 @@ public class SignUp extends javax.swing.JFrame {
         return valid;
     }
 
+    private void kGradientPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kGradientPanel2MouseEntered
+        btnSignIn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        buttonSignUp.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_kGradientPanel2MouseEntered
+
     private void buttonSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignUpActionPerformed
         if (validateInput()) {
             String name = inputName.getText().trim();
@@ -305,10 +311,6 @@ public class SignUp extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_buttonSignUpActionPerformed
-
-    private void inputNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputNameActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSignIn;
