@@ -1,5 +1,6 @@
 package com.andriawan.event_tix.repository;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,6 +120,20 @@ public class TransactionRepository extends DBConn {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
             return null;
+        }
+    }
+    
+    public boolean cancelTransaction(int transactionId) {
+        try {
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE transactions SET transactions.status = 'cancelled' WHERE transactions.id = ?");
+            ((PreparedStatement) stmt).setInt(1, transactionId);
+
+            ((PreparedStatement) stmt).execute();
+
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
+            return false;
         }
     }
 }

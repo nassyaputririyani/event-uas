@@ -5,7 +5,6 @@
 package com.andriawan.event_tix.pages.fragments.home;
 
 import com.andriawan.event_tix.models.Event;
-import com.andriawan.event_tix.pages.fragments.transactions.TransactionPage;
 import com.andriawan.event_tix.repository.EventRepository;
 
 import java.util.List;

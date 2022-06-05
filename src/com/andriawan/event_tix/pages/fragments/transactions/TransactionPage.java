@@ -174,7 +174,14 @@ public class TransactionPage extends javax.swing.JPanel {
                 mainPanel.revalidate();
                 break;
             case "pending":
-                JOptionPane.showMessageDialog(null, "Silahkan lunasi pembayaran transaksi");
+                int option = JOptionPane.showConfirmDialog(null, "Anda belum membayar transaksi ini, apakah ingin membatalkan?");
+                if (option == JOptionPane.OK_OPTION) {
+                    boolean cancelled = repository.cancelTransaction(transaction.getId());
+                    if (cancelled) {
+                        JOptionPane.showMessageDialog(null, "Berhasil membatalkan transaksi");
+                        initData("");
+                    }
+                }
                 break;
             default:
                 JOptionPane.showMessageDialog(null, "Transaksi sudah gagal");
