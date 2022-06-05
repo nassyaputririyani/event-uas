@@ -4,10 +4,10 @@
  */
 package com.andriawan.event_tix.pages;
 
-import javax.swing.JComponent;
-
-import com.andriawan.event_tix.pages.fragments.transactions.TransactionPage;
 import com.andriawan.event_tix.pages.fragments.home.HomePageAdmin;
+import javax.swing.JComponent;
+import com.andriawan.event_tix.pages.fragments.transactions.TransactionPage;
+import com.andriawan.event_tix.pages.fragments.transactions.TransactionPageAdmin;
 import com.andriawan.event_tix.utils.PreferenceUtil;
 
 /**
@@ -23,7 +23,30 @@ public class MainAdmin extends javax.swing.JFrame {
      */
     public MainAdmin() {
         initComponents();
+        this.setLocationRelativeTo(null);
         
+        homePageAdmin = new HomePageAdmin(mainPanel);
+        sidebarMenu.addEventMenuSelected((int index) -> {
+            System.out.println("Selected " + index);
+            switch (index) {
+                case 0:
+                    setForm(homePageAdmin);
+                    break;
+                case 1:
+                    setForm(new TransactionPageAdmin(mainPanel));
+                    break;
+                case 2:
+                    PreferenceUtil.saveUserData(0, "", "");
+                    new SignIn().setVisible(true);
+                    this.setVisible(false);
+                    break;
+                default:
+                    setForm(homePageAdmin);
+                    break;
+            }
+        });
+        
+        setForm(homePageAdmin);
     }
     
     private void setForm(JComponent com) {
@@ -63,41 +86,6 @@ public class MainAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainAdmin().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel mainPanel;

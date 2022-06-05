@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 import com.andriawan.event_tix.models.Transaction;
+import com.andriawan.event_tix.pages.Main;
 import com.andriawan.event_tix.repository.TransactionRepository;
 import com.andriawan.event_tix.utils.DateFormatter;
 import com.andriawan.event_tix.utils.NumberFormatter;
@@ -21,7 +22,7 @@ import com.andriawan.event_tix.utils.PreferenceUtil;
  *
  * @author RAVEN
  */
-public class TransactionPage extends javax.swing.JPanel {
+public class TransactionPageAdmin extends javax.swing.JPanel {
 
     private final TransactionRepository repository;
     private List<Transaction> transactions;
@@ -31,7 +32,7 @@ public class TransactionPage extends javax.swing.JPanel {
      * Creates new form Form_1
      * @param mainPanel
      */
-    public TransactionPage(JPanel mainPanel) {
+    public TransactionPageAdmin(JPanel mainPanel) {
         this.mainPanel = mainPanel;
         initComponents();
         repository = new TransactionRepository();
@@ -39,8 +40,7 @@ public class TransactionPage extends javax.swing.JPanel {
     }
 
     private void initData(String q) {
-        int userId = PreferenceUtil.getUserID();
-        transactions = repository.getListTransactions(q, userId);
+        transactions = repository.getListTransactionsAdmin(q);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             model.removeRow(i);
@@ -173,7 +173,7 @@ public class TransactionPage extends javax.swing.JPanel {
                 mainPanel.revalidate();
                 break;
             case "pending":
-                int option = JOptionPane.showConfirmDialog(null, "Anda belum membayar transaksi ini, apakah ingin membatalkan?");
+                int option = JOptionPane.showConfirmDialog(null, "Anda yakin akan melunaskan transaksi ini?");
                 if (option == JOptionPane.OK_OPTION) {
                     boolean cancelled = repository.cancelTransaction(transaction.getId());
                     if (cancelled) {

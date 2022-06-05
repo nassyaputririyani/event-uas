@@ -1,28 +1,32 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.andriawan.event_tix.pages.fragments.home;
 
 import com.andriawan.event_tix.models.Event;
-import com.andriawan.event_tix.pages.fragments.transactions.TransactionPage;
+import com.andriawan.event_tix.pages.fragments.transactions.TransactionDetailPage;
 import com.andriawan.event_tix.repository.EventRepository;
-
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author aryaputra
+ * @author naufalfawwaz
  */
-public class HomePageAdmin extends javax.swing.JFrame {
-
+public class HomePageAdmin extends javax.swing.JPanel {
+    
     EventRepository eventRepository;
+    private final JPanel mainPanel;
 
     /**
-     * Creates new form Home_Page
+     * Creates new form HomePageAdmin
+     * @param mainPanel
      */
-    public HomePageAdmin() {
+    public HomePageAdmin(JPanel mainPanel) {
         initComponents();
+        this.mainPanel = mainPanel;
         eventRepository = new EventRepository();
         initTable();
     }
@@ -56,8 +60,6 @@ public class HomePageAdmin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(2, 54, 102));
 
@@ -139,8 +141,8 @@ public class HomePageAdmin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 903, Short.MAX_VALUE)
@@ -152,51 +154,24 @@ public class HomePageAdmin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 593, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        addEvent add = new addEvent();
-        add.setVisible(true);
+        EventForm addEvent = new EventForm();
+        mainPanel.removeAll();
+        mainPanel.add(addEvent);
+        mainPanel.repaint();
+        mainPanel.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HomePageAdmin().setVisible(true);
-            }
-        });
-    }
-    
-//    private void show_event(){
-//        DefaultTableModel tb = new DefaultTableModel();
-//        tb.addColumn("title");
-//        tb.addColumn("quota");
-//        tb.addColumn("type");
-//        tb.addColumn("price");
-//        tb.addColumn("event_time");
-//        
-//        
-//        try{
-//            String query = "SELECT * FROM event_tix";
-//            java.sql.Connection vconn = (Connection)DBConn.class;
-//        }catch (Exception e){
-//            
-//        }
-//    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel7;

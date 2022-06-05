@@ -10,7 +10,6 @@ import com.andriawan.event_tix.repository.AuthRepository;
 import com.andriawan.event_tix.utils.PreferenceUtil;
 import com.andriawan.event_tix.utils.Util;
 import java.awt.Cursor;
-import java.awt.HeadlessException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -253,7 +252,9 @@ public class SignIn extends javax.swing.JFrame {
             if (user != null) {
                 JOptionPane.showMessageDialog(null, "Login Success");
                 if ("admin".equals(user.getRole())) {
-                    System.out.println("To Admin");
+                    MainAdmin mainAdmin = new MainAdmin();
+                    mainAdmin.setVisible(true);
+                    this.setVisible(false);
                 } else {
                     Main mainUser = new Main();
                     mainUser.setVisible(true);
@@ -345,7 +346,8 @@ public class SignIn extends javax.swing.JFrame {
                     mainUser.setVisible(true);
                 } else {
                     System.out.println("Go to admin");
-                    new SignIn().setVisible(true);
+                    MainAdmin mainAdmin = new MainAdmin();
+                    mainAdmin.setVisible(true);
                 }
             } else {
                 new SignIn().setVisible(true);
