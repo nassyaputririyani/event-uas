@@ -7,6 +7,7 @@ package com.andriawan.event_tix.pages.fragments.transactions;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -163,10 +164,22 @@ public class TransactionPage extends javax.swing.JPanel {
         int row = jTable1.rowAtPoint(evt.getPoint());
         Transaction transaction = transactions.get(row);
 
-        mainPanel.removeAll();
-        mainPanel.add(new TransactionDetailPage(transaction.getId(), mainPanel));
-        mainPanel.repaint();
-        mainPanel.revalidate();
+        if (null == transaction.getStatus()) {
+            JOptionPane.showMessageDialog(null, "Transaksi sudah gagal");
+        } else switch (transaction.getStatus()) {
+            case "paid":
+                mainPanel.removeAll();
+                mainPanel.add(new TransactionDetailPage(transaction.getId(), mainPanel));
+                mainPanel.repaint();
+                mainPanel.revalidate();
+                break;
+            case "pending":
+                JOptionPane.showMessageDialog(null, "Silahkan lunasi pembayaran transaksi");
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Transaksi sudah gagal");
+                break;
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased

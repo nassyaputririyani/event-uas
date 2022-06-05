@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 
 import com.andriawan.event_tix.pages.fragments.transactions.TransactionPage;
 import com.andriawan.event_tix.pages.fragments.home.HomePage;
+import com.andriawan.event_tix.utils.PreferenceUtil;
 
 /**
  *
@@ -34,7 +35,9 @@ public class Main extends javax.swing.JFrame {
                     setForm(new TransactionPage(mainPanel));
                     break;
                 case 2:
-                    setForm(homePage);
+                    PreferenceUtil.saveUserData(0, "", "");
+                    new SignIn().setVisible(true);
+                    this.setVisible(false);
                     break;
                 default:
                     setForm(homePage);
