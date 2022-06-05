@@ -24,9 +24,9 @@ public class DBConn {
     private void getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");  
-            String url = "jdbc:mysql://localhost/event_tix";
+            String url = "jdbc:mysql://localhost/db_event_tix";
             String username = "root";
-            String password = "andriawan_24";
+            String password = "";
             this.connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Connection Failed! " + e.getMessage());

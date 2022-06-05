@@ -48,10 +48,10 @@ public class EventRepository extends DBConn {
         }
     }
     
-    public Event getEvent(int eventID) {
+    public Event getEvent(int eventId) {
         try {
             stmt = connection.createStatement();
-            resultSet = stmt.executeQuery("SELECT * FROM events WHERE events.id = " + eventID);
+            resultSet = stmt.executeQuery("SELECT * FROM events WHERE events.id = " + eventId);
             List<Event> list = new ArrayList<>();
             
             while (resultSet.next()) {

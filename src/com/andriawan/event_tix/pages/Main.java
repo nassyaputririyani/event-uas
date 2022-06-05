@@ -24,7 +24,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         
-        homePage = new HomePage();
+        homePage = new HomePage(mainPanel);
         sidebarMenu.addEventMenuSelected((int index) -> {
             System.out.println("Selected " + index);
             switch (index) {
