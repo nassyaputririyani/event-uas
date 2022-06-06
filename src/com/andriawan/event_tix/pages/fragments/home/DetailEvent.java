@@ -26,6 +26,8 @@ public class DetailEvent extends javax.swing.JPanel {
 
     /**
      * Creates new form DetailEvent
+     * @param eventId
+     * @param mainPanel
      */
     public DetailEvent(int eventId, JPanel mainPanel) {
         initComponents(); 
@@ -39,6 +41,7 @@ public class DetailEvent extends javax.swing.JPanel {
             mainPanel.repaint();
             mainPanel.revalidate();
         }
+        
         jLabel3.setIcon(
             new ImageIcon(
                 this.getClass().getResource("/com/andriawan/event_tix/icons/Calendar.png")
@@ -167,7 +170,7 @@ public class DetailEvent extends javax.swing.JPanel {
                 .addComponent(eventTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(eventTime, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(eventPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,7 +230,7 @@ public class DetailEvent extends javax.swing.JPanel {
 
     private void btnDaftarEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDaftarEventMouseClicked
         if ("active".equals(event.getStatus())) {
-             int userId = PreferenceUtil.getUserID();
+            int userId = PreferenceUtil.getUserID();
             boolean isAvailable = eventRepository.isAvailable(userId, event.getId());
             int price = "free".equals(event.getType()) ? 0 : event.getPrice();
             

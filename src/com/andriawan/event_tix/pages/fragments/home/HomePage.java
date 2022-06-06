@@ -38,6 +38,7 @@ public class HomePage extends javax.swing.JPanel {
         this.events = events;
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
+        
         for (Event event : events) {
             model.addRow(new Object[]{
                 event.getTitle(),
@@ -165,9 +166,10 @@ public class HomePage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int row = jTable1.rowAtPoint(evt.getPoint());
+        int row = jTable1.rowAtPoint(evt.getPoint()); // -> Index, dimulai dari 0
         Event event = events.get(row);
         System.out.println("Clicked");
+        
         mainPanel.removeAll();
         mainPanel.add(new DetailEvent(event.getId(), mainPanel));
         mainPanel.repaint();
