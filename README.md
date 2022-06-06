@@ -4,28 +4,28 @@ Blablabla
 ## Pembagian Tugas
 #### Naufal Fawwaz Andriawan
 - [x] Transaction Page - User
+- [x] Add Transaction - User
 
 #### Nassya Putri Riyani
-- [ ] Event List (Home Page) - User
-- [ ] Detail Event - User
-- [ ] Add Transaction - User
+- [x] Event List (Home Page) - User
+- [x] Detail Event - User
 
 #### Aryaputra
-- [ ] Event List - Admin
+- [x] Event List - Admin
 
 #### Dhafin Taufiqi
-- [ ] Add event - Admin
+- [x] Add event - Admin
 
 #### Ikhsan 
-- [ ] Sign in
-- [ ] Sign up
+- [x] Sign in
+- [x] Sign up
 
 #### Ijah
-- [ ] Transaction List Page - Admin
+- [x] Transaction List Page - Admin
 
 #### Faaris
-- [ ] Transaction change status - Admin (Coordination with ijah)
-- [ ] Logout
+- [x] Transaction change status - Admin (Coordination with ijah)
+- [x] Logout
 
 ## Alur Aplikasi
 #### Autentikasi
