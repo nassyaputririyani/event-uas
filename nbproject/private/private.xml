@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/naufalfawwaz/Documents/Programming%20Stuff/Java/event-uas/src/com/andriawan/event_tix/pages/fragments/home/HomePage.java</file>
-            <file>file:/Users/naufalfawwaz/Documents/Programming%20Stuff/Java/event-uas/src/com/andriawan/event_tix/pages/SignIn.java</file>
-            <file>file:/Users/naufalfawwaz/Documents/Programming%20Stuff/Java/event-uas/src/com/andriawan/event_tix/repository/EventRepository.java</file>
-            <file>file:/Users/naufalfawwaz/Documents/Programming%20Stuff/Java/event-uas/src/com/andriawan/event_tix/repository/AuthRepository.java</file>
-            <file>file:/Users/naufalfawwaz/Documents/Programming%20Stuff/Java/event-uas/src/com/andriawan/event_tix/repository/TransactionRepository.java</file>
-            <file>file:/Users/naufalfawwaz/Documents/Programming%20Stuff/Java/event-uas/src/com/andriawan/event_tix/pages/Main.java</file>
-            <file>file:/Users/naufalfawwaz/Documents/Programming%20Stuff/Java/event-uas/src/com/andriawan/event_tix/pages/fragments/transactions/TransactionPage.java</file>
-            <file>file:/Users/naufalfawwaz/Documents/Programming%20Stuff/Java/event-uas/src/com/andriawan/event_tix/models/Event.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

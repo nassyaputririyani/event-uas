@@ -22,10 +22,14 @@ import javax.swing.JOptionPane;
  */
 public class EventRepository extends DBConn {
     
-    public List<Event> getListEvent() {
+    public List<Event> getListEvent(String q) {
         try {
             stmt = connection.createStatement();
-            resultSet = stmt.executeQuery("SELECT * FROM events");
+            if (q.isEmpty()) {
+                resultSet = stmt.executeQuery("SELECT id, title, description, quota, status, type ,price, event_time FROM events");
+            } else {
+                resultSet = stmt.executeQuery("SELECT id, title, description, quota, status, type ,price, event_time FROM events WHERE events.title LIKE '%" + q + "%'");
+            }
             List<Event> list = new ArrayList<>();
             
             while (resultSet.next()) {
@@ -45,7 +49,7 @@ public class EventRepository extends DBConn {
             
             stmt.close();
             resultSet.close();
-            connection.close();
+            
             return list;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
@@ -157,6 +161,20 @@ public class EventRepository extends DBConn {
             
             String dateTime = LocalDateTime.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));
             ((PreparedStatement) stmt).setString(4, dateTime);
+
+            ((PreparedStatement) stmt).execute();
+
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Connection Failed " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public Boolean deleteEvent(int eventId) {
+        try {
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM events WHERE events.id = ?");
+            ((PreparedStatement) stmt).setInt(1, eventId);
 
             ((PreparedStatement) stmt).execute();
 
